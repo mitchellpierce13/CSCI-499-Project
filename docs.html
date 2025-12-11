@@ -16,6 +16,33 @@
   <main>
     <h1>Project Documentation</h1>
 
+    <h2>Cluster Nodes and IP Addresses</h2>
+
+<p>The distributed computing cluster consists of eight servers. Each server is assigned both a 10 Gbit/s interface and a 1 Gbit/s interface, using the following addressing patterns:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Server</th>
+      <th>10 Gbit/s IP (192.168.88.x)</th>
+      <th>1 Gbit/s IP (192.168.0.x)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Server 1</td><td>192.168.88.11</td><td>192.168.0.21</td></tr>
+    <tr><td>Server 2</td><td>192.168.88.12</td><td>192.168.0.22</td></tr>
+    <tr><td>Server 3</td><td>192.168.88.13</td><td>192.168.0.23</td></tr>
+    <tr><td>Server 4</td><td>192.168.88.14</td><td>192.168.0.24</td></tr>
+    <tr><td>Server 5</td><td>192.168.88.15</td><td>192.168.0.25</td></tr>
+    <tr><td>Server 6</td><td>192.168.88.16</td><td>192.168.0.26</td></tr>
+    <tr><td>Server 7</td><td>192.168.88.17</td><td>192.168.0.27</td></tr>
+    <tr><td>Server 8</td><td>192.168.88.18</td><td>192.168.0.28</td></tr>
+  </tbody>
+</table>
+
+<p>The 10 Gbit/s interfaces are used for high-throughput cluster communication, while the 1 Gbit/s interfaces are used for management, SSH access, and NFS traffic.</p>
+
+
     <h2>Installing Ubuntu</h2>
     <ol>
       <li>Download the Ubuntu ISO: <a href="https://ubuntu.com/download/desktop">ubuntu.com/download/desktop</a>.</li>
