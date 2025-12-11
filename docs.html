@@ -16,54 +16,55 @@
   <main>
     <h1>Project Documentation</h1>
 
-    <h2>Install Ubuntu</h2>
+    <h2>Installing Ubuntu</h2>
     <ol>
-      <li>Download Ubuntu ISO: <a href="https://ubuntu.com/download/desktop">https://ubuntu.com/download/desktop</a></li>
-      <li>Configure a boot drive using a utility like Rufus.</li>
-      <li>Wipe servers clean by configuring RAID 10.</li>
-      <li>Use <code>ctrl+h</code> when prompted to open the web BIOS.</li>
-      <li>Select the configuration wizard.</li>
+      <li>Download the Ubuntu ISO: <a href="https://ubuntu.com/download/desktop">ubuntu.com/download/desktop</a>.</li>
+      <li>Create a bootable USB drive using a tool such as Rufus.</li>
+      <li>Prepare each server by configuring a RAID 10 array.</li>
+      <li>Press <code>Ctrl + H</code> during startup to open the WebBIOS utility.</li>
+      <li>Launch the Configuration Wizard.</li>
       <li>Create a RAID 10 spanned drive group:
         <ul>
           <li>Assign two drives to span 0 and two drives to span 1.</li>
         </ul>
       </li>
-      <li>Confirm the RAID configuration.</li>
-      <li>Load Ubuntu using the boot drive.</li>
-      <li>Follow steps to install Ubuntu using default settings. Check the box to install additional drivers.</li>
-      <li>Reboot the server when finished.</li>
+      <li>Confirm and finalize the RAID configuration.</li>
+      <li>Boot from the USB drive and load the Ubuntu installer.</li>
+      <li>Complete installation using default options. Be sure to select the option to install additional drivers.</li>
+      <li>Reboot the server once installation is complete.</li>
     </ol>
 
-    <h2>Install OpenMPI</h2>
+    <h2>Installing OpenMPI</h2>
     <pre><code>sudo apt install openmpi-bin openmpi-common libopenmpi-dev
 mpirun --version
 </code></pre>
 
-    <p><strong>Structure for host file:</strong></p>
+    <p><strong>Example hostfile configuration:</strong></p>
     <pre><code>node1  slots=16
 node2  slots=16
 node3  slots=16
 </code></pre>
 
-    <h2>Configure SSH</h2>
-    <h3>Configure IP addresses</h3>
+    <h2>Configuring SSH</h2>
+
+    <h3>Assigning Static IP Addresses</h3>
     <ol>
-      <li>Connect each server to each other over Ethernet.</li>
-      <li>On each server, go to network settings.</li>
-      <li>Select manual IP configuration.</li>
-      <li>Assign each one an IP address on the same subnet.</li>
-      <li>Repeat these steps each time the servers restart.</li>
+      <li>Physically connect all servers to each other via Ethernet.</li>
+      <li>Open the network settings on each machine.</li>
+      <li>Switch the IPv4 configuration mode to "Manual."</li>
+      <li>Assign a unique IP address to each server within the same subnet.</li>
+      <li>Repeat this configuration after each reboot unless the settings are made persistent.</li>
     </ol>
 
-    <h3>Enable passwordless SSH</h3>
+    <h3>Enabling Passwordless SSH</h3>
     <pre><code>ssh-keygen -t rsa
 ssh-copy-id user@node2
 ssh-copy-id user@node3
 </code></pre>
 
-    <h2>Configure NFS</h2>
+    <h2>Configuring NFS</h2>
 
-    <h3>On the server</h3>
+    <h3>Server Configuration</h3>
     <pre><code>sudo apt install nfs-kernel-server -y
 sudo mkdir -p /srv/nfs_share
 sudo chown nobody:nogroup /srv/nfs_share
@@ -71,7 +72,7 @@ sudo chmod 777 /srv/nfs_share
 sudo nano /etc/exports
 </code></pre>
 
-    <p>Add this line to <code>/etc/exports</code>:</p>
+    <p>Add the following line to <code>/etc/exports</code>:</p>
     <pre><code>/srv/nfs_share 192.168.1.0/24(rw,sync,no_subtree_check)
 </code></pre>
 
@@ -81,7 +82,7 @@ sudo systemctl enable nfs-kernel-server
 sudo systemctl start nfs-kernel-server
 </code></pre>
 
-    <h3>On each client</h3>
+    <h3>Client Configuration</h3>
     <pre><code>sudo apt install nfs-common -y
 sudo mkdir -p /mnt/nfs_share
 sudo mount -t nfs 192.168.1.1:/srv/nfs_share /mnt/nfs_share
@@ -95,28 +96,30 @@ sudo nano /etc/fstab
     <pre><code>sudo mount -a
 </code></pre>
 
-    <h2>Install JtR Jumbo</h2>
-    <p>Follow the instructions:</p>
+    <h2>Installing John the Ripper (Jumbo Edition)</h2>
+    <p>Follow the official installation documentation:</p>
     <ul>
-      <li><a href="https://github.com/openwall/john/blob/bleeding-jumbo/doc/INSTALL">JtR INSTALL</a></li>
+      <li><a href="https://github.com/openwall/john/blob/bleeding-jumbo/doc/INSTALL">JtR Installation Guide</a></li>
     </ul>
 
-    <p>To enable OpenMPI support, add the <code>--enable-mpi</code> flag to the <code>./configure</code> command.  
-    More details:</p>
-
+    <p>To enable OpenMPI support, include the <code>--enable-mpi</code> flag when running <code>./configure</code>.  
+    Additional information can be found here:</p>
     <ul>
-      <li><a href="https://github.com/openwall/john/blob/bleeding-jumbo/doc/README.mpi">README.mpi</a></li>
+      <li><a href="https://github.com/openwall/john/blob/bleeding-jumbo/doc/README.mpi">JtR MPI Documentation</a></li>
     </ul>
 
-    <h2>Run JtR Using OpenMPI</h2>
+    <h2>Running JtR with OpenMPI</h2>
 
-    <h3>Ensure Correct Pathing</h3>
-    <p>Each node needs JtR to be located in the same directory.  
-    If NFS share paths differ, create a directory on the master node such as <code>/mnt/nfs_share</code>, move JtR files there, and run the program from that location.</p>
+    <h3>Verify Directory Structure</h3>
+    <p>
+      All nodes must have access to JtR in the same directory path.  
+      If paths differ, place the JtR directory on an NFS-mounted location such as <code>/mnt/nfs_share</code>
+      and run all commands from there.
+    </p>
 
-    <h3>Run JtR</h3>
-    <p>Example OpenMPI command:</p>
-    <pre><code>mpirun -hostfile hosts.txt ./john /mnt/nfs_share/hashes.txt --format=raw-md5 --pot=/mnt/nfs_share/shared.pot
+    <h3>Example MPI Command</h3>
+    <pre><code>mpirun -hostfile hosts.txt ./john /mnt/nfs_share/hashes.txt \
+--format=raw-md5 --pot=/mnt/nfs_share/shared.pot
 </code></pre>
   </main>
 </body>
