@@ -1,0 +1,4 @@
+This github site has been set up in order to display the results of our CSCI 399/499 capstone project for the fall semester of 2025. It discusses the overview of the project, the hardware used, the actual documentation for the overall process, the results, and the credits for those who worked on it. Below is the project overview.
+
+Project Overview:
+This project focuses on designing, configuring, and evaluating a distributed computing cluster built from eight physical servers. Using OpenMPI, the cluster aggregates the processing power of all nodes to run parallel workloads and demonstrate real-world distributed computing concepts. Performance will be benchmarked using the “John the Ripper” (JtR Jumbo) password-cracking suite and compared with the capabilities of a non-clustered GPU system. Following the experiment, the team will host project documentation through this GitHub Pages site.
