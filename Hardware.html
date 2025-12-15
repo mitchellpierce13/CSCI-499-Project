@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hardware & Infrastructure</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #1f2937;
+            color: #ffffff;
+            padding: 20px 40px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px;
+        }
+
+        section {
+            background-color: #ffffff;
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            margin-top: 0;
+            font-size: 22px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table th {
+            background-color: #f1f5f9;
+            font-weight: bold;
+            width: 30%;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .image-card {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fafafa;
+            padding: 10px;
+        }
+
+        .image-card img {
+            width: 100%;
+            border-radius: 4px;
+        }
+
+        .image-card p {
+            text-align: center;
+            font-size: 14px;
+            margin: 10px 0 0 0;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Hardware & Infrastructure</h1>
+</header>
+
+<main>
+
+    <!-- Dell EMC R440 Servers -->
+    <section>
+        <h2>Dell EMC R440 Servers (×2)</h2>
+
+        <table>
+            <tr>
+                <th>Operating System</th>
+                <td>Ubuntu 24.04 LTS</td>
+            </tr>
+            <tr>
+                <th>Processors</th>
+                <td>2 × Intel Xeon Gold 6152</td>
+            </tr>
+            <tr>
+                <th>Memory</th>
+                <td>64 GB DDR4 @ 2666 MT/s</td>
+            </tr>
+            <tr>
+                <th>Network Interface</th>
+                <td>Supermicro AOC-STGN-i2S</td>
+            </tr>
+            <tr>
+                <th>Storage</th>
+                <td>4 × 4 TB Seagate ST40000NM016A HDD</td>
+            </tr>
+            <tr>
+                <th>RAID Configuration</th>
+                <td>RAID 10</td>
+            </tr>
+            <tr>
+                <th>RAID Controller</th>
+                <td>Dell PERC H330</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Supermicro SuperServers -->
+    <section>
+        <h2>Supermicro SYS-1027GR-TSF SuperServers (×6)</h2>
+
+        <table>
+            <tr>
+                <th>Operating System</th>
+                <td>Ubuntu 24.04 LTS</td>
+            </tr>
+            <tr>
+                <th>Processors</th>
+                <td>2 × Intel Xeon E5-2650 v2</td>
+            </tr>
+            <tr>
+                <th>Memory</th>
+                <td>192 GB DDR3 @ 1866 MT/s</td>
+            </tr>
+            <tr>
+                <th>Network Interfaces</th>
+                <td>
+                    Supermicro AOC-STGN-i2S<br>
+                    Supermicro AOC-SGP-i4 (1 GbE)
+                </td>
+            </tr>
+            <tr>
+                <th>Storage</th>
+                <td>4 × 1 TB HDD</td>
+            </tr>
+            <tr>
+                <th>RAID Configuration</th>
+                <td>RAID 10</td>
+            </tr>
+            <tr>
+                <th>RAID Controller</th>
+                <td>Supermicro AOC-SAS2LP-H8IR</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Networking Equipment -->
+    <section>
+        <h2>Networking Equipment</h2>
+
+        <table>
+            <tr>
+                <th>10 GbE Switch</th>
+                <td>TP-Link TL-SX3008F</td>
+            </tr>
+            <tr>
+                <th>1 GbE Switch</th>
+                <td>Netgear GS748Tv5</td>
+            </tr>
+            <tr>
+                <th>Network Cables</th>
+                <td>8 × TP-Link TL-SM5220-1M</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Physical Images -->
+    <section>
+        <h2>Physical Setup</h2>
+
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="images/servers_front.jpg" alt="Servers front view">
+                <p>Rack-mounted servers (front view)</p>
+            </div>
+
+            <div class="image-card">
+                <img src="images/servers_rear.jpg" alt="Servers rear view">
+                <p>Rear cabling and power connections</p>
+            </div>
+
+            <div class="image-card">
+                <img src="images/switches.jpg" alt="Network switches">
+                <p>Network switches</p>
+            </div>
+
+            <div class="image-card">
+                <img src="images/cabling.jpg" alt="Cabling layout">
+                <p>Network and power cabling layout</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    © 2025 Project Team
+</footer>
+
+</body>
+</html>
