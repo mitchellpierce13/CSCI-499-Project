@@ -13,102 +13,67 @@
     <a href="docs.html">Documentation</a>
     <a href="results.html" class="active">Results</a>
     <a href="credits.html">Credits</a>
-
   </nav>
 
   <main>
     <h1>Benchmark Results</h1>
+
+    <h2>Node Status Output</h2>
     <p>
-      This section documents the results of the benchmarking phase, where the eight-node CPU-based cluster
-      running John the Ripper (JtR Jumbo with MPI) is compared against a standalone GPU system. The primary
-      objective is to evaluate password‑cracking throughput, efficiency, and scalability across the two approaches.
+      During distributed execution, the status of each MPI rank was written to disk for later inspection.
+      This was accomplished by exporting rank output to a shared NFS directory accessible by all nodes.
     </p>
 
-    <h2>Benchmarking Methodology</h2>
     <p>
-      All tests were conducted using identical hash samples to ensure consistency. The cluster executed JtR with
-      OpenMPI across all eight nodes, while the GPU system ran JtR in standalone mode. Each test measured:
+      The following option was added to the <code>mpirun</code> command to enable output collection:
     </p>
+
+    <pre><code>--output-filename /mnt/nfs_share/status
+</code></pre>
+
+    <p>
+      This option designates a directory where each MPI rank writes its execution status and performance data.
+      The collected output allows individual node performance to be examined after execution completes.
+    </p>
+
+    <p>
+      The results were retrieved from the shared directory using the following command:
+    </p>
+
+    <!-- Space reserved for screenshot of rank output -->
+    <img src="images/screenshot of results.png" alt="MPI rank output status" />
+
+    <pre><code>cat /mnt/nfs_share/status/*
+</code></pre>
+
+    <h2>Cluster Performance Results</h2>
+    <p>
+      In a test run, per-rank statistics were written to a file named <code>rankstats.txt</code>.
+      Aggregating the output from all ranks produced the following total throughput for the eight-node CPU cluster:
+    </p>
+
     <ul>
-      <li><strong>Execution Time</strong> — total time required to complete the cracking attempt</li>
-      <li><strong>Hash Throughput</strong> — measured in hashes per second (H/s)</li>
-      <li><strong>Resource Utilization</strong> — CPU usage, GPU usage, and networking overhead</li>
+      <li><strong>Total passwords tested per second:</strong> 253,485.512 p/s</li>
+      <li><strong>Total hash computations per second:</strong> 5,076,790.614 c/s</li>
     </ul>
 
-    <h2>Cluster Performance (CPU-Based, 8 Nodes)</h2>
+    <h2>GPU Performance Results</h2>
     <p>
-      The following table will contain performance metrics collected during distributed execution of JtR using MPI.
-      Populate the table after running the benchmarks.
+      For comparison, the same password set was processed on a standalone system equipped with a single
+      Radeon RX 6600 GPU. The following performance metrics were observed:
     </p>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Test Name</th>
-          <th>Hash Format</th>
-          <th>Nodes Used</th>
-          <th>Execution Time</th>
-          <th>Hashes per Second</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td colspan="5" style="text-align:center;">Results pending</td></tr>
-      </tbody>
-    </table>
-
-    <h2>GPU Performance (Standalone System)</h2>
-    <p>
-      The GPU system serves as the comparison baseline. Insert results from the GPU‑accelerated JtR runs here.
-    </p>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Test Name</th>
-          <th>Hash Format</th>
-          <th>GPU Model</th>
-          <th>Execution Time</th>
-          <th>Hashes per Second</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td colspan="5" style="text-align:center;">Results pending</td></tr>
-      </tbody>
-    </table>
-
-    <h2>Comparative Analysis</h2>
-    <p>
-      Once data collection is complete, use this section to discuss the performance differences between the
-      distributed CPU cluster and the single GPU system. Suggested discussion points include:
-    </p>
     <ul>
-      <li>The relative cracking speed advantage of the GPU vs. the CPU cluster</li>
-      <li>Impact of OpenMPI scaling across eight nodes</li>
-      <li>Network overhead introduced by MPI communication</li>
-      <li>How different hash types respond to CPU vs. GPU parallelization</li>
-      <li>Energy efficiency and cost‑per‑performance comparisons</li>
+      <li><strong>Passwords tested per second:</strong> 207,813 p/s</li>
+      <li><strong>Hash computations per second:</strong> 7,936,000 c/s</li>
     </ul>
 
-    <h2>Visual Representations</h2>
+    <h2>Summary</h2>
     <p>
-      Insert graphs, charts, or plots here (bar charts, line graphs, etc.) to visually represent throughput,
-      scaling behavior, and speed comparisons between the cluster and GPU.
+      The distributed CPU cluster demonstrated strong aggregate password-testing throughput when scaling
+      across eight nodes. While the GPU achieved a higher raw hash computation rate, the cluster provided
+      competitive performance through parallel execution and horizontal scaling.
     </p>
-
-    <h2>Conclusions</h2>
-    <p>
-      After analyzing the benchmark results, use this section to summarize key takeaways, strengths and
-      limitations of each approach, and the practical implications for password‑cracking or distributed computing
-      workloads.
-    </p>
-
-    <h2>Future Improvements</h2>
-    <ul>
-      <li>Testing with additional hash formats</li>
-      <li>Integrating GPU nodes into the cluster for hybrid MPI/GPU cracking</li>
-      <li>Optimizing MPI settings for reduced communication overhead</li>
-      <li>Evaluating alternative distributed cracking tools</li>
-    </ul>
   </main>
 </body>
 </html>
