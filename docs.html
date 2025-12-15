@@ -150,48 +150,6 @@ sudo nano /etc/fstab
     <pre><code>mpirun -hostfile hosts.txt ./john /mnt/nfs_share/hashes.txt \
 --format=raw-md5 --pot=/mnt/nfs_share/shared.pot \
 --output-filename /mnt/nfs_share/status
-</code></pre>
-
-    <h2>Results</h2>
-
-    <p>Output the status of the nodes.</p>
-
-    <p>Add the following line to the <code>mpirun</code> command to export results:</p>
-
-    <pre><code>--output-filename /mnt/nfs_share/status
-</code></pre>
-
-    <p>This designates a folder for the ranks to output their status to.</p>
-
-    <p>The results can be fetched to the command line using this bash code:</p>
-
-<img src="images/screenshot of results.png" alt="Cluster results output screenshot" />
-
-<pre><code># example command used to retrieve rank output
-cat /mnt/nfs_share/status/*
-</code></pre>
-
-    
-
-    <pre><code># example command used to retrieve rank output
-cat /mnt/nfs_share/status/*
-</code></pre>
-
-    <p>In a test run, the results were listed in <code>rankstats.txt</code>.  
-    Adding all the ranks together gave the following results:</p>
-
-    <ul>
-      <li>Total p/s (passwords tested per second): 253,485.512 p/s</li>
-      <li>Total c/s (hash computations per second): 5,076,790.614 c/s</li>
-    </ul>
-
-    <p>Here are results from a PC with a single Radeon RX 6600 GPU trying to crack the same passwords:</p>
-
-    <ul>
-      <li>p/s: 207,813</li>
-      <li>c/s: 7,936,000</li>
-    </ul>
-
 
   </main>
 </body>
